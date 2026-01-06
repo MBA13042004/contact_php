@@ -67,7 +67,11 @@ jobs:
         run: php artisan migrate --force
 
       - name: PHP Syntax Check
-        run: find . -name "*.php" -not -path "./vendor/*" -exec php -l {} \; | grep -v "No syntax errors"
+        run: |
+          find . -name "*.php" -not -path "./vendor/*" -print0 | while IFS= read -r -d '' file; do
+            php -l "$file" || exit 1
+          done
+          echo "✅ All PHP files have valid syntax"
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit --testdox
