@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: laravel-config
+  namespace: laravel-app
+data:
+  APP_NAME: "ContactApp"
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  DB_CONNECTION: "mysql"
+  DB_HOST: "mysql-service"
+  DB_PORT: "3306"
+  DB_DATABASE: "laravel_db"
+  DB_USERNAME: "root"

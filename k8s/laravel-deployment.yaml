@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-deployment
+  namespace: laravel-app
+  labels:
+    app: laravel
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: laravel
+  template:
+    metadata:
+      labels:
+        app: laravel
+    spec:
+      containers:
+      - name: laravel
+        image: contact-app:v1
+        imagePullPolicy: Never  # Important : utilise l'image locale
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: APP_NAME
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: APP_ENV
+        - name: APP_DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: APP_DEBUG
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: laravel-secret
+              key: APP_KEY
+        - name: DB_CONNECTION
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: DB_CONNECTION
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: DB_PORT
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: DB_DATABASE
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: laravel-config
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          value: ""
+        # Probes temporairement désactivées pour debugging
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 80
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 80
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 5

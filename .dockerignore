@@ -1,0 +1,52 @@
+# Ignore node modules
+node_modules/
+npm-debug.log
+
+# Ignore vendor (sera réinstallé dans le conteneur)
+vendor/
+
+# Ignore les fichiers git
+.git/
+.gitignore
+.gitattributes
+
+# Ignore les fichiers de configuration locale
+.env
+.env.local
+.env.*.local
+
+# Ignore les logs
+storage/logs/*
+*.log
+
+# Ignore les fichiers de test
+tests/
+phpunit.xml
+.phpunit.result.cache
+
+# Ignore les fichiers IDE
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Ignore les fichiers de build
+public/hot
+public/storage
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Ignore les fichiers temporaires
+*.swp
+*.swo
+*~
+
+# Ignore Docker files (éviter la récursion)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore README et documentation de développement
+README.md
+CHANGELOG.md
